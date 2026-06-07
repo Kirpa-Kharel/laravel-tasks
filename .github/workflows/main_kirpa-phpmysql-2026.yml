@@ -52,19 +52,14 @@ jobs:
         uses: actions/download-artifact@v4
         with:
           name: php-app
-      
-      - name: Login to Azure
-        uses: azure/login@v2
-        with:
-          client-id: ${{ secrets.AZUREAPPSERVICE_CLIENTID_DD160E2B4F504F9C980D15DD78238343 }}
-          tenant-id: ${{ secrets.AZUREAPPSERVICE_TENANTID_AF8A7F33546D45B780B825ED886E3BDC }}
-          subscription-id: ${{ secrets.AZUREAPPSERVICE_SUBSCRIPTIONID_EEFAB123CFF74DF9B37C0065512DE396 }}
 
+          
+      
       - name: 'Deploy to Azure Web App'
         uses: azure/webapps-deploy@v3
         id: deploy-to-webapp
         with:
           app-name: 'kirpa-phpmysql-2026'
-          slot-name: 'Production'
+          publish-profile: ${{ secrets.AZURE_WEBAPP_PUBLISH_PROFILE }}
           package: .
           
